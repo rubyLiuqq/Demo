@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .axis path,
+    .axis line{
+      fill: none;
+      stroke: black;
+      shape-rendering: crispEdges;
+    }
+    .axis text {
+      font-family: sans-serif;
+      font-size: 11px;
+    }
+    .MyRect {
+      fill: steelblue;
+    }
+    .MyText {
+      fill: white;
+      text-anchor: middle;
+    }
+  </style>
+
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+  const width = 400;  // 画布的宽度
+  const height = 400;   // 画布的高度
+
+  const svg = d3.select('body')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  // 定义数据和坐标尺数据
+  const padding = {left:30, right:30, top:20, bottom:20};
+  const dataset = [10, 20, 30, 40, 33, 24, 12, 5];
+  const xScale = d3.scale.ordinal()
+    .domain(d3.range(dataset.length))
+    .rangeRoundBands([0, width - padding.left - padding.right]);
+
+  const yScale = d3.scale.linear()
+    .domain([0, d3.max(dataset)])
+    .range([height - padding.top - padding.bottom, 0]);
+
+  const XAxis = d3.svg.axis()
+    .scale(xScale)
+    .orient('bottom');
+
+  const YAxis = d3.svg.axis()
+    .scale(yScale)
+    .orient('left');
+
+  // 矩形之间的空白
+  const rectPadding = 4;
+
+  // 添加矩形元素
+  svg.selectAll('rect')
+    .data(dataset)
+    .enter()
+    .append('rect')
+    .attr('class', 'MyRect')
+    .attr('transform', "translate(" + padding.left + "," + padding.top + ")")
+    .attr('x', (data, index) => {
+      return xScale(index) + rectPadding / 2;
+    })
+    .attr('y', (data) => {
+      return yScale(data);
+    })
+    .attr('width', xScale.rangeBand() - rectPadding)
+    .attr('height', function(d){
+      return height - padding.top - padding.bottom - yScale(d);
+    })
+    .attr('fill', 'steelblue');
+
+  // 柱形图的文字
+  svg.selectAll(".MyText")
+    .data(dataset)
+    .enter()
+    .append('text')
+    .attr('class', 'MyText')
+    .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+    .attr('x', (data, index) => {
+      return xScale(index) + rectPadding / 2;
+    })
+    .attr('y', (data) => {
+      return yScale(data);
+    })
+    .attr("dx",function(){
+			return (xScale.rangeBand() - rectPadding) / 2;
+		})
+		.attr("dy",function(d){
+			return 20;
+		})
+    .text(function(d){
+			return d;
+		});
+
+  // 坐标x轴
+  svg.append("g")
+    .attr("class","axis")
+    .attr("transform","translate(" + padding.left + "," + (height - padding.bottom) + ")")
+    .call(XAxis);
+
+  //添加y轴
+  svg.append("g")
+    .attr("class","axis")
+    .attr("transform","translate(" + padding.left + "," + padding.top + ")")
+    .call(YAxis);
+</script>
+</html>

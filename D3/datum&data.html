@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello World</title>
+</head>
+<body>
+  <p>Apple</p>
+  <p>Pear</p>
+  <p>Banana</p>
+  <div>Apple</div>
+  <div>Pear</div>
+  <div>Banana</div>
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script>
+    // datum 绑定一个数据到选择集上
+    const str = "China";
+    const body = d3.select("body");
+    const pList = body.selectAll("p");
+    pList.datum(str);
+    pList.text(function(d, i){
+      return "第 "+ i + " 个元素绑定的数据是 " + d;
+    });
+
+    // data 绑定一个数组到选择集上，数组的各项值分别与选择集的各元素绑定
+    const dataset = ["I like dog", "I like cat", "I like snake"];
+    const divList = body.selectAll('div');
+    divList.data(dataset);
+    divList.text((data, index) => {
+      return data
+    });
+  </script>
+</body>
+</html>

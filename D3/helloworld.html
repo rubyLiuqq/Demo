@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hello World</title>
+</head>
+<body>
+  <p>Hello World 1</p>
+  <p>Hello World 2</p>
+  <script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script>
+    // 利用 JS 修改 innerHTML
+    const pList = document.getElementsByTagName('p');
+    for (let i = 0; i < pList.length; i++) {
+      pList[i].innerHTML = 'I like JS';
+    };
+
+    d3.select("body").selectAll("p").text("I like D3");
+  </script>
+</body>
+</html>
