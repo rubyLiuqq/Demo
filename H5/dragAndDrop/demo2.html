@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>双向拖拽</title>
+  <style type="text/css">
+    .box {
+      float: left;
+      width: 120px;
+      height: 135px;
+      margin: 10px;
+      border-radius: 3px;
+      border: 1px solid #aaaaaa;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>双向拖拽</h2>
+  <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+  <div class="box" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <img id="dragImg" draggable="true" ondragstart="drag(event)" src="img/2.png" width="120" draggable="true" />
+  </div>
+</body>
+
+<script>
+  // 被拖动者
+  function drag(ev) {
+    ev.dataTransfer.setData('dragImg', ev.target.id);
+  }
+
+  // 允许拖动的外围容器
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  // 允许拖动的释放动作
+  function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData('dragImg');
+    ev.target.appendChild(document.getElementById(data));
+  }
+
+
+</script>
+
+</html>

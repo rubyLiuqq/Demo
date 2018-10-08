@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>lazyLoad</title>
+  <style media="screen">
+    img {
+      background: #F1F1FA;
+      width: 400px;
+      height: 300px;
+      display: block;
+      margin: 10px auto;
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>方式一 jquery-lazyload</h1>
+  <hr>
+  <img src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg?r=1" />
+  <img src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg?r=1" />
+  <img src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg?r=1" />
+  <hr>
+  <img class="lazy1" data-original="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg?r=1" />
+  <img class="lazy1" data-original="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg" />
+  <img class="lazy1" data-original="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg?r=1" />
+  <img class="lazy1" data-original="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg" />
+  <img class="lazy1" data-original="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg?r=1" />
+  <img class="lazy1" data-original="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg" />
+
+  <h1>方式二 IntersectionObserver</h1>
+  <hr>
+  <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg?r=1" />
+  <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a8268k1826032348011.jpeg" />
+  <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg?r=1" />
+  <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg" />
+  <img class="lazy" data-src="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg?r=1" />
+  <img class="lazy" data-src="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg" />
+</body>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="../jquery.lazyload.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  $(function () {
+    $("img.lazy1").lazyload({ effect: "fadeIn" });
+  });
+
+  const options = {
+    threshold: 1.0, // 决定了何时触发回调函数
+    root: null, // 指定目标元素所在的容器节点
+    rootMargin: '0px 0px 10px 0px', // 定义根元素的margin
+  };
+  const observer = new IntersectionObserver(callback, options);
+  function callback(entries, observer) {
+    console.log(entries);
+    entries.forEach(entry => {
+      // target element:
+      //   entry.boundingClientRect 目标元素的矩形区域的信息
+      //   entry.intersectionRatio  目标元素的可见比例，即intersectionRect占boundingClientRect的比例，完全可见时为1，完全不可见时小于等于0
+      //   entry.intersectionRect 目标元素与视口（或根元素）的交叉区域的信息
+      //   entry.isIntersecting
+      //   entry.rootBounds 根元素的矩形区域的信息，getBoundingClientRect()方法的返回值，如果没有根元素（即直接相对于视口滚动），则返回null
+      //   entry.target   被观察的目标元素，是一个 DOM 节点对象
+      //   entry.time   可见性发生变化的时间，是一个高精度时间戳，单位为毫秒
+      if (entry.isIntersecting) {
+        console.log(entry);
+        var img = entry.target;
+        img.src = img.dataset.src;
+        img.classList.remove('lazy');
+        observer.unobserve(img);
+      }
+    });
+  }
+
+  document.querySelectorAll('.lazy').forEach(function (img) {
+    observer.observe(img);
+  });
+</script>
+
+</html>

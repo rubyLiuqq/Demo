@@ -1,0 +1,16 @@
+{
+  "config": {
+    "init": {
+      "desc": "初始化新项目",
+      "questions": {
+        "framework": "你要使用哪一门前端框架？",
+        "language": "你要使用哪一门编程语言？",
+        "features": "你需要使用哪些内置功能？",
+        "px2rem": "设置用于 px2rem 的设计稿基准尺寸：",
+        "autoprefixer": "你想兼容哪些老旧浏览器和系统？",
+        "commitlint": "设置 commitlint 的 scopes，以 “, ” 分隔："
+      },
+      "success": "项目初始化完成！"
+    }
+  }
+}

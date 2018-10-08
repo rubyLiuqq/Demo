@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>单向拖拽</title>
+  <style type="text/css">
+    .box {
+      display: inline-block;
+      width: 120px;
+      height: 135px;
+      border-radius: 3px;
+      border: 1px solid #aaaaaa;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>单向拖拽</h2>
+  <span class="box" ondrop="drop(event)" ondragover="allowDrop(event)"></span>
+  <img id="dragImg" draggable="true" ondragstart="drag(event)" src="img/1.png" width="120" draggable="true" />
+</body>
+
+<script>
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+  function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData('dragImg');
+    console.log('drop', ev.target, data);
+    ev.target.appendChild(document.getElementById(data));
+  }
+  function drag(ev) {
+    // 设置拖放操作的drag data到指定的数据和类型。
+    console.log(ev.target.id);
+    ev.dataTransfer.setData('dragImg', ev.target.id);
+  }
+</script>
+
+</html>
