@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>SimpleTransition</title>
+</head>
+
+<body>
+
+</body>
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+  //画布大小
+  const width = 400;
+  const height = 400;
+
+  const svg = d3.select('body')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  const dataset = [45, 45, 25];
+  svg.selectAll('circle')
+    .data(dataset)
+    .enter()
+    .append('circle')
+    .attr('cx', 100)
+    .attr('cy', (data, index) => {
+      return (index + 1) * 100;
+    })
+    .attr('r', (data) => {
+      return data;
+    })
+    .attr('fill', 'rgb(255, 0, 0)');
+
+  svg.select('circle').attr('fill', 'green');
+
+  svg.selectAll('circle')
+    .transition()
+    .duration(1500)
+    .attr("cx", 300)
+    .ease('bounce');
+</script>
+
+</html>
