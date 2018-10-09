@@ -77,13 +77,24 @@
       return xScale(index) + rectPadding / 2;
     })
     .attr('y', (data) => {
-      return yScale(data);
+      const min = yScale.domain()[0];
+      return yScale(min);
     })
     .attr('width', xScale.rangeBand() - rectPadding)
-    .attr('height', function (data) {
-      return height - padding.top - padding.bottom - yScale(data);
+    .attr('height', 0)
+    .attr('fill', 'steelblue')
+    .transition()
+    .duration(2000)
+    .delay((data, index) => {
+      return index * 200;
     })
-    .attr('fill', 'steelblue');
+    .ease('bounce')
+    .attr('y', (data) => {
+      return yScale(data);
+    })
+    .attr('height', (data) => {
+      return height - padding.top - padding.bottom - yScale(data)
+    });
 
   // 柱形图的文字
   svg.selectAll(".MyText")
@@ -96,7 +107,9 @@
       return xScale(index) + rectPadding / 2;
     })
     .attr('y', (data) => {
-      return yScale(data);
+      var min = yScale.domain()[0];
+      return yScale(min);
+
     })
     .attr("dx", function () {
       return (xScale.rangeBand() - rectPadding) / 2;
@@ -106,6 +119,15 @@
     })
     .text(function (d) {
       return d;
+    })
+    .transition()
+    .duration(2000)
+    .delay((data, index) => {
+      return index * 200;
+    })
+    .ease('bounce')
+    .attr('y', (data) => {
+      return yScale(data);
     });
 
   // 坐标x轴

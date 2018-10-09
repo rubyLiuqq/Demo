@@ -73,3 +73,31 @@ eg: #domain&range.html
 `scale()`：指定比例尺。
 `orient()`：指定刻度的朝向，bottom 表示在坐标轴的下方显示。
 `ticks()`：指定刻度的数量。
+
+-----------------
+## 实现动态的方法
+### 1、transition() 启动过渡效果
+```js
+.attr("fill", "red")         //初始颜色为红色
+.transition()                //启动过渡
+.attr("fill", "steelblue")   //终止颜色为铁蓝色
+```
+
+### 2、duration() 过渡的持续时间，单位为毫秒
+### 3、ease() 指定过渡的方式
+`linear`：普通的线性变化
+`circle`：慢慢地到达变换的最终状态
+`elastic`：带有弹跳的到达最终状态
+`bounce`：在最终状态处弹跳几次
+格式形如： ease("bounce")。
+
+### 4、delay()  延迟的时间
+```js 
+.transition()
+.duration(1000)
+.delay(funtion (d,i) {
+    return 200*i;
+});
+// 对一个一个的图形（图形上绑定了数据）进行指定时
+```
+
