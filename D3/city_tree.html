@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>D3</title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script>
+  const width = 600;
+  const height = 600;
+
+  const svg = d3.select('body')
+    .append('svg')
+    .attr('width', width)
+    .attr('height', height);
+
+  const tree = d3.layout.tree()
+    .size([width, height-200])    // 设定尺寸，即转换后的各节点的坐标在哪一个范围内。
+    .separation(function(a, b) { return (a.parent == b.parent ? 1 : 2); });   // 设定节点之间的间隔。
+</script>
+</html>
