@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>canvas-黑客</title>
+</head>
+
+<body>
+    <canvas id="canvas" width='500' height="500" style="background:#eee;"></canvas>
+    <script src="./aqu.js"></script>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas'),
+                ctx = canvas.getContext('2d');
+            canvas.height = 400;
+            canvas.width = 800;
+
+            //实例水草
+            var oAqu = new Aqu();
+            //初始化
+            oAqu.init();
+
+            var oldTime = new Date().getTime(),
+                del = null,
+                newTime = null;
+
+            (function drawFrmae() {
+                window.requestAnimationFrame(drawFrmae);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                newTime = new Date().getTime();
+                del = new Date().getTime() - oldTime;
+                oldTime = newTime;
+
+                oAqu.draw(ctx, del);
+            }());
+        }
+    </script>
+</body>
+
+</html>
