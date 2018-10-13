@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数截流</title>
+  <style>
+    button {
+      border: 1px solid steelblue;
+      border-radius: 2px;
+      width: 150px;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn">函数截流</button>
+</body>
+<script src="./throttle.js"></script>
+<script>
+  const btn = document.getElementById('btn');
+
+  function demo() {
+    console.log('click');
+  }
+
+  btn.addEventListener('click', throttle(demo, 1000));
+</script>
+</html>
