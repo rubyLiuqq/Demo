@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>canvas-黑客</title>
+  <title>小球匀速运动</title>
 </head>
 
 <body>
@@ -11,30 +11,32 @@
   <script src="./ball.js"></script>
   <script>
     window.onload = function () {
-      var canvas = document.getElementById('canvas'),
-        context = canvas.getContext('2d');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
 
-      var angle = 0,
-        range = 50,
-        xspeed = 1,
-        yspeed = 0.05;
+      const ySpeed = 0.05,
+          xSpeed = 1,
+          range = 50;
+      let angle = 0;
 
-      var ball = new Ball();
+      const ball = new Ball();
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ball.x += xspeed; //水平，沿x轴方向水平运动
+        // 水平，沿x轴方向水平运动
+        ball.x += xSpeed;
 
         if (ball.x > canvas.width + ball.radius) {
           ball.x = -ball.radius;
         }
-        //垂直， 由于angle角度没发生变化，所以纵坐标保持不变
+
+        // 垂直， 由于angle角度没发生变化，所以纵坐标保持不变
         ball.y = canvas.height / 2 + Math.sin(angle) * range;
 
-        angle += yspeed; //取消注释看看发生了什么？
-        ball.draw(context);
+        angle += ySpeed;
+        ball.draw(ctx);
       })();
     }
   </script>
