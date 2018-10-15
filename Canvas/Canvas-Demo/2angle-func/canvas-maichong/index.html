@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>canvas-小球</title>
+  <title>小球闪烁运动</title>
 </head>
 
 <body>
@@ -11,27 +11,25 @@
   <script src="./ball.js"></script>
   <script>
     window.onload = function () {
-      var canvas = document.getElementById('canvas'),
-        context = canvas.getContext('2d');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
 
-      var angle = 0,
-        range = 0.5,
-        speed = 0.05,
-        centerScale = 0.5;
+      const range = 0.5;
+      const speed = 0.05;
+      const centerScale = 0.5;
+      let angle = 0;
 
-      var ball = new Ball();
+      const ball = new Ball();
       ball.x = canvas.width / 2;
       ball.y = canvas.height / 2;
 
       (function drawFrame() {
         window.requestAnimationFrame(drawFrame, canvas);
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0 ,canvas.width, canvas.height);
 
-        //sin值的变化，导致 ball.scaleX ， ball.scaleY属性变化
         ball.scaleX = ball.scaleY = centerScale + Math.sin(angle) * range;
         angle += speed;
-
-        ball.draw(context);
+        ball.draw(ctx)
       })();
     }
   </script>
