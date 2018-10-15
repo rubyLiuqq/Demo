@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>canvas-黑客</title>
+  <title>芦苇</title>
 </head>
 
 <body>
@@ -11,17 +11,15 @@
   <script src="./aqu.js"></script>
   <script>
     window.onload = function () {
-      var canvas = document.getElementById('canvas'),
-        ctx = canvas.getContext('2d');
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
       canvas.height = 400;
       canvas.width = 800;
 
-      //实例水草
-      var oAqu = new Aqu();
-      //初始化
-      oAqu.init();
+      var Aqus = new Aqu();
+      Aqus.init();
 
-      var oldTime = new Date().getTime(),
+      let oldTime = new Date().getTime(),
         del = null,
         newTime = null;
 
@@ -33,7 +31,7 @@
         del = new Date().getTime() - oldTime;
         oldTime = newTime;
 
-        oAqu.draw(ctx, del);
+        Aqus.draw(ctx, del);
       }());
     }
   </script>
