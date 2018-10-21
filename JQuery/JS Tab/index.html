@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>tab组件-level3</title>
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+  <div class="tab-container">
+    <div class="tab-nav">
+      <span class="tab-nav-item ui-tab-active">tab1</span>
+      <span class="tab-nav-item">tab2</span>
+      <span class="tab-nav-item">tab3</span>
+    </div>
+    <div class="tab-contents tab-contents-active">这是内容1</div>
+    <div class="tab-contents">这是内容2</div>
+    <div class="tab-contents">这是内容3</div>
+  </div>
+  <script type="text/javascript" src="index.js"></script>
+  <script>
+    var tab = new Tab({
+      element: '.tab-container',
+      trigger: '.tab-nav-item',
+      triggerActiveClass: 'ui-tab-active',
+      contents: '.tab-contents',
+      activeIndex: 0,
+      // 回调方法，在触发tab切换的时候执行
+      onSwitch: function(index, count){
+          console.log("index %d count %d", index, count);
+      }
+    });
+  </script>
+</body>
+</html>
