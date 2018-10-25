@@ -15,6 +15,29 @@
       margin: 10px auto;
       border: 0;
     }
+    * {
+			padding: 0;
+			margin: 0;
+			text-decoration: none;
+			list-style: none;
+		}
+		.layout {
+			margin: 0 auto;
+			width: 1000px;
+		}
+		.lazyload img {
+			width: 300px;
+			height: 400px;
+		}
+		.img-ct {
+			margin-left: -50px;
+			overflow: auto;
+		}
+		.item {
+			float: left;
+			margin-left: 50px;
+			margin-bottom: 30px;
+		}
   </style>
 </head>
 
@@ -40,15 +63,69 @@
   <img class="lazy" data-src="http://s9.rr.itc.cn/r/wapChange/201611_29_19/a4x4oi1826105512011.jpeg" />
   <img class="lazy" data-src="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg?r=1" />
   <img class="lazy" data-src="http://img4.imgtn.bdimg.com/it/u=463826950,488680386&fm=26&gp=0.jpg" />
+
+  <h1>方式三 自己封装</h1>
+  <hr>
+  <div class="lazyload">
+    <div class="layout">
+      <ul class="img-ct">
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+        <li class="item">
+          <a href="javascript:void(0)"><img data-img="../img/Tsingtao.jpeg" src="../img/blank.jpg"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </body>
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="./lazyload-demo.js"></script>
 <script type="text/javascript" charset="utf-8">
+  // 方式一 jquery - lazyload
   $(function () {
     $("img.lazy1").lazyload({ effect: "fadeIn" });
   });
 
+  // 方式二 IntersectionObserver
   const options = {
     threshold: 1.0, // 决定了何时触发回调函数
     root: null, // 指定目标元素所在的容器节点
@@ -56,7 +133,7 @@
   };
   const observer = new IntersectionObserver(callback, options);
   function callback(entries, observer) {
-    console.log(entries);
+    // console.log(entries);
     entries.forEach(entry => {
       // target element:
       //   entry.boundingClientRect 目标元素的矩形区域的信息
@@ -67,7 +144,7 @@
       //   entry.target   被观察的目标元素，是一个 DOM 节点对象
       //   entry.time   可见性发生变化的时间，是一个高精度时间戳，单位为毫秒
       if (entry.isIntersecting) {
-        console.log(entry);
+        // console.log(entry);
         var img = entry.target;
         img.src = img.dataset.src;
         img.classList.remove('lazy');
@@ -79,6 +156,8 @@
   document.querySelectorAll('.lazy').forEach(function (img) {
     observer.observe(img);
   });
-</script>
 
+  // 方式三 自己封装
+  lazyLoad.init();
+</script>
 </html>
