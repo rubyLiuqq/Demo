@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>宽高等比自适应</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    ul, li {
+      list-style: none;
+    }
+    /* body宽度随意变化看看效果 */
+    body {
+      width: 100%;
+    }
+
+    ul {
+      background: #fff;
+      overflow: hidden;
+    }
+
+    li {
+      width: 12%;
+      padding-bottom: 32%;
+      float: left;
+      margin-top: 20px;
+      margin-left: 1%;
+      background: tomato;
+      margin-bottom: 1%;
+      position: relative;
+    }
+
+    li:after {
+      content: '1';
+      position: absolute;
+      z-index: 99;
+      left: 50%;
+      top: 50%;
+    }
+
+    .test {
+      padding-top: 50%;
+      background: teal;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+<br />
+<div class="test"></div>
+</body>
+</html>
